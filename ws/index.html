@@ -1,0 +1,47 @@
+<!doctype html>
+
+<style>
+	input, div {
+		font-size: 200%;
+		width: 100%;
+
+		background: #E0FFF0;
+		margin: 1ex;
+
+	}
+</style>
+ 
+<input form="searchform" action="" name="search" autofocus placeholder="type here" id="search" type="text" maxlength="200">
+
+<div id="out"></div>
+
+
+
+
+<script>
+var ex;
+var d = document.querySelector("#out");
+
+document.querySelector("#search").addEventListener("keypress",
+
+	function(e) {
+		ex.send( String.fromCharCode(e.charCode));
+	}
+
+);
+
+ex = new WebSocket("ws://127.0.0.1:9999/");
+
+ex.onopen = function () {
+	ex.send("HELO");
+};
+
+ex.onerror = function (error) {
+  console.log('ERR' + error);
+};
+
+ex.onmessage = function (e) {
+	d.innerHTML = d.innerHTML + e.data;
+};
+
+</script>
