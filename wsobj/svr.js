@@ -20,7 +20,17 @@ var
 		ws.send('{"x":0,"y":0}');
 	},
 
-	ipaddr = require('os').networkInterfaces().en0[1].address;
+
+	ipaddr = "127.0.0.1",
+	add = require('os').networkInterfaces();
+
+
+if (add.en0) {
+	ipaddr = add.en0[1].address;
+}
+if (add.eth0) {
+	ipaddr = add.eth0[0].address;
+}
 
 wss.on('connection', ws_responder);
 console.log("WS Listening on:", ipaddr + ":" + port)
