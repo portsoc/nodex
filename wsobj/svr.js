@@ -11,8 +11,8 @@ var
 		ws.on('message', function(message) {
 			console.log('received: %s', message);
 
-			for (let i of wss.clients) {
-				i.send(message);
+			for (var i=0; i<wss.clients.length; i++) {
+				wss.clients[i].send(message);
 			}
 
 		});
